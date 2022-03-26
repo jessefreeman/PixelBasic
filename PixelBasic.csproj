@@ -11,10 +11,23 @@
         <Compile Include="./Antlr/Gen/**/*.cs">
             <Link>Antler/Gen/%(RecursiveDir)%(Filename)%(Extension)</Link>
         </Compile>
+        <Compile Remove="gen\**" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Antlr\Gen" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="gen\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="gen\**" />
     </ItemGroup>
 
 </Project>

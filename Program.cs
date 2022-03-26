@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace PixelBasic
 {
@@ -7,16 +8,27 @@ namespace PixelBasic
     {
         static void Main(string[] args)
         {
-            if (args.Length != 1)
+            try
             {
-                Console.WriteLine("Usage PixelBasicApp <programFile>");
-                return;
+                if (args.Length != 1)
+                {
+                    Console.WriteLine("Usage PixelBasicApp <programFile>");
+                    return;
+                }
+
+                var program = File.ReadAllText(args[0]);
+
+                var programStream = new MemoryStream(Encoding.UTF8.GetBytes(program));
+            
+                var interpreter = new Interpreter(programStream);
+                interpreter.run(programStream);
+                interpreter.clear();
             }
-
-            var program = File.ReadAllText(args[0]);
-
-            var interpreter = new Interpreter(program);
-            interpreter.ExecuteProgram();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
     }
 }
