@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -10,36 +11,45 @@ namespace PixelBasic
         {
             try
             {
-                
-                // For debugging
-                args = new[]
-                {
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/for_continue.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/for_exit.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/for_simple.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/functions.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/gcd_euclid.bas", // TODO Not working
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/if_else.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/if_simple_false.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/if_simple_true.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/input.bas", // TODO not working
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/let.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/operations.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/print.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/repeat.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/syntax_err.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/type_err.bas",
-                    "/Users/jessefreeman/Projects/DotNet/PixelBasic/PixelBasic/Examples/Tests/while.bas"
-                };
+
+                string path;
                 
                 if (args.Length == 0)
                 {
                     Console.WriteLine("Usage PixelBasicApp <programFile>");
-                    return;
+                    
+                    // These are used for debugging if a file's path is not provided
+                    
+                    var rootPath = $"..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}";
+
+                    // For debugging
+                    args = new[]
+                    {
+                        "for_continue.bas",
+                        "for_exit.bas",
+                        "for_simple.bas",
+                        "functions.bas",
+                        "gcd_euclid.bas", // TODO Not working
+                        "if_else.bas",
+                        "if_simple_false.bas",
+                        "if_simple_true.bas",
+                        "input.bas", // TODO not working
+                        "let.bas",
+                        "operations.bas",
+                        "print.bas",
+                        "repeat.bas",
+                        "syntax_err.bas",
+                        "type_err.bas",
+                        "while.bas"
+                    };
+                    
+                    path = Path.Combine(rootPath, "Examples", args[0]);
                 }
-
-                var path = args[15];
-
+                else
+                {
+                    path = args[0];
+                }
+                
                 var program = File.ReadAllText(path);
 
                 Console.WriteLine("Running program: " + path);
